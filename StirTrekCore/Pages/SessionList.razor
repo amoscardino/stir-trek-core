@@ -6,7 +6,7 @@
         <div class="btn-group">
             <button type="button"
                     class="btn @(ShowSavedSessionsOnly ? "btn-outline-secondary" : "btn-secondary")"
-                    @onclick="_ => ShowSavedSessionsOnly = false">
+                    @onclick="_ => ShowSavedSessionsOnly = false ">
                 All
             </button>
 
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    foreach (var timeSlot in Schedule)
+    foreach (var timeSlot in GetFilteredSchedule())
     {
         <h2>@timeSlot.Time</h2>
 

@@ -22,7 +22,7 @@ namespace StirTrekCore.Pages
             Schedule = await StirTrekService.GetFullScheduleAsync();
         }
 
-        private List<TimeSlotModel> FilteredSchedule()
+        private List<TimeSlotModel> GetFilteredSchedule()
         {
             if (ShowSavedSessionsOnly)
             {
