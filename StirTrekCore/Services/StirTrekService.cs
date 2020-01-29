@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Blazor.Extensions.Storage;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
+using Blazor.Extensions.Storage.Interfaces;
 
 namespace StirTrekCore.Services
 {
@@ -17,11 +16,11 @@ namespace StirTrekCore.Services
         private const string SCHEDULE_URL = "https://raw.githubusercontent.com/stirtrek/stirtrek.github.io/source/source/_data/schedule2019.json";
 
         private HttpClient _httpClient;
-        private LocalStorage _localStorage;
+        private ILocalStorage _localStorage;
         private ILogger<StirTrekService> _logger;
         private List<TimeSlotModel> _fullSchedule;
 
-        public StirTrekService(HttpClient httpClient, LocalStorage localStorage, ILogger<StirTrekService> logger)
+        public StirTrekService(HttpClient httpClient, ILocalStorage localStorage, ILogger<StirTrekService> logger)
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
