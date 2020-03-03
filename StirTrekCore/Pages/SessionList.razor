@@ -26,7 +26,7 @@
             @foreach (var session in timeSlot.Sessions)
             {
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 mb-3" @key="session.Id">
-                    <div class="card @(session.IsSaved ? "border-primary shadow" : "shadow-sm")">
+                    <div class="card bg-secondary @(session.IsSaved ? "border-primary shadow" : "shadow-sm")">
                         <div class="card-body">
                             <h5 class="card-title">
                                 @session.Title
@@ -48,7 +48,7 @@
             }
         </div>
 
-        <hr />
+        <hr class="border-secondary" />
     }
 
     foreach (var timeSlot in Schedule)
@@ -57,8 +57,8 @@
         {
             <div class="modal fade" id="Session-@session.Id" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-xl shadow-lg" role="document">
-                    <div class="modal-content bg-light">
-                        <div class="modal-header">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header border-secondary">
                             <h5 class="modal-title">@session.Title</h5>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -67,68 +67,68 @@
                         </div>
 
                         <div class="modal-body">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="card mb-4 shadow-sm">
-                                            <div class="card-header">
-                                                Description
-                                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card bg-secondary mb-4 shadow-sm">
+                                        <div class="card-header">
+                                            Description
+                                        </div>
 
-                                            <div class="card-body">
-                                                @if (!string.IsNullOrWhiteSpace(session.Description))
-                                                {
-                                                    @session.Description
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-muted">
-                                                        (no description)
-                                                    </span>
-                                                }
-                                            </div>
+                                        <div class="card-body">
+                                            @if (!string.IsNullOrWhiteSpace(session.Description))
+                                            {
+                                                @session.Description
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">
+                                                    (no description)
+                                                </span>
+                                            }
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-4">
-                                        <div class="card mb-4 shadow-sm">
-                                            <div class="card-header">
-                                                Where and When
+                                <div class="col-md-4">
+                                    <div class="card bg-secondary mb-4 shadow-sm">
+                                        <div class="card-header">
+                                            Where and When
+                                        </div>
+
+                                        <div class="list-group list-group-flush">
+                                            <div class="list-group-item list-group-item-dark">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <strong class="mr-3">
+                                                        Time
+                                                    </strong>
+
+                                                    <span class="text-right">
+                                                        @timeSlot.Time
+                                                    </span>
+                                                </div>
                                             </div>
 
-                                            <div class="list-group list-group-flush">
-                                                <div class="list-group-item">
+                                            @if (!string.IsNullOrWhiteSpace(session.Track))
+                                            {
+                                                <div class="list-group-item list-group-item-dark">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <strong class="mr-3">
-                                                            Time
+                                                            Track
                                                         </strong>
 
                                                         <span class="text-right">
-                                                            @timeSlot.Time
+                                                            @session.Track
                                                         </span>
                                                     </div>
                                                 </div>
+                                            }
 
-                                                @if (!string.IsNullOrWhiteSpace(session.Track))
-                                                {
-                                                    <div class="list-group-item">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <strong class="mr-3">
-                                                                Track
-                                                            </strong>
-
-                                                            <span class="text-right">
-                                                                @session.Track
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                }
-
-                                                <div class="list-group-item">
+                                            @if (!string.IsNullOrWhiteSpace(session.ScheduledRoom))
+                                            {
+                                                <div class="list-group-item list-group-item-dark">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <strong class="mr-3">
                                                             Room
-
                                                         </strong>
 
                                                         <span class="text-right">
@@ -137,9 +137,9 @@
                                                     </div>
                                                 </div>
 
-                                                @if (session.Theatres?.Any() ?? false)
+                                                if (session.Theatres?.Any() ?? false)
                                                 {
-                                                    <div class="list-group-item">
+                                                    <div class="list-group-item list-group-item-dark">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <strong class="mr-3">
                                                                 Theatres
@@ -165,74 +165,74 @@
                                                         </div>
                                                     </div>
                                                 }
-                                            </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
-
-                                @foreach (var speaker in session.Speakers)
-                                {
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="card mb-4 shadow-sm">
-                                                <div class="card-header">
-                                                    Speaker
-                                                </div>
-
-                                                <div class="card-body">
-                                                    @if (speaker.ProfilePicture != null)
-                                                    {
-                                                        <img src="@speaker.ProfilePicture"
-                                                             alt="@speaker.FullName"
-                                                             class="img-fluid rounded-circle w-75 mx-auto d-block mb-4" />
-                                                    }
-
-                                                    <strong class="d-block">@speaker.FullName</strong>
-
-                                                    @speaker.TagLine
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="@(speaker.Links?.Any() ?? false ? "col-md-6" : "col-md-9")">
-                                            <div class="card mb-4 shadow-sm">
-                                                <div class="card-header">
-                                                    Speaker Bio
-                                                </div>
-
-                                                <div class="card-body">
-                                                    @speaker.Bio
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        @if (speaker.Links?.Any() ?? false)
-                                        {
-                                            <div class="col-md-3">
-                                                <div class="card mb-4 shadow-sm">
-                                                    <div class="card-header">
-                                                        Links
-                                                    </div>
-
-                                                    <div class="list-group list-group-flush">
-                                                        @foreach (var link in speaker.Links)
-                                                        {
-                                                            <a class="list-group-item list-group-item-action"
-                                                               href="@link.Url"
-                                                               target="_blank">
-                                                                @link.Title
-                                                            </a>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                }
                             </div>
+
+                            @foreach (var speaker in session.Speakers)
+                            {
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="card bg-secondary mb-4 shadow-sm">
+                                            <div class="card-header">
+                                                Speaker
+                                            </div>
+
+                                            <div class="card-body">
+                                                @if (speaker.ProfilePicture != null)
+                                                {
+                                                    <img src="@speaker.ProfilePicture"
+                                                         alt="@speaker.FullName"
+                                                         class="img-fluid rounded-circle w-75 mx-auto d-block mb-4" />
+                                                }
+
+                                                <strong class="d-block">@speaker.FullName</strong>
+
+                                                @speaker.TagLine
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="@(speaker.Links?.Any() ?? false ? "col-md-6" : "col-md-9")">
+                                        <div class="card bg-secondary mb-4 shadow-sm">
+                                            <div class="card-header">
+                                                Speaker Bio
+                                            </div>
+
+                                            <div class="card-body">
+                                                @speaker.Bio
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (speaker.Links?.Any() ?? false)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="card bg-secondary mb-4 shadow-sm">
+                                                <div class="card-header">
+                                                    Links
+                                                </div>
+
+                                                <div class="list-group list-group-flush">
+                                                    @foreach (var link in speaker.Links)
+                                                    {
+                                                        <a class="list-group-item list-group-item-action list-group-item-dark"
+                                                           href="@link.Url"
+                                                           target="_blank">
+                                                            @link.Title
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
                         </div>
 
-                        <div class="modal-footer">
+                        <div class="modal-footer border-secondary">
                             <button type="button"
                                     class="btn btn-primary"
                                     @onclick="_ => ToggleSavedStateAsync(session)">

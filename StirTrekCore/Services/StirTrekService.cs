@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Blazor.Extensions.Storage.Interfaces;
 
 namespace StirTrekCore.Services
@@ -17,14 +16,14 @@ namespace StirTrekCore.Services
 
         private HttpClient _httpClient;
         private ILocalStorage _localStorage;
-        private ILogger<StirTrekService> _logger;
+
         private List<TimeSlotModel> _fullSchedule;
 
-        public StirTrekService(HttpClient httpClient, ILocalStorage localStorage, ILogger<StirTrekService> logger)
+        public StirTrekService(HttpClient httpClient, ILocalStorage localStorage)
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
-            _logger = logger;
+
             _fullSchedule = new List<TimeSlotModel>();
         }
 
